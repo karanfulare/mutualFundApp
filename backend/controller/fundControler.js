@@ -1,4 +1,4 @@
-const util = requir("utils");
+const util = require("util");
 const db = require("./../utils/dbConfig");
 
 const query = util.promisify(db.query).bind(db);
