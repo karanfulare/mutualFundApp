@@ -4,7 +4,8 @@
   "description": "This project has Api's which enables the user to create account -> choose a fund family -> add funds in portfolio -> track there performance , it uses Rapid Api to fetch the details of the mutualFunds. ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "author": "Karan Fulare",
   "license": "ISC",
@@ -12,6 +13,7 @@
     "axios": "^1.8.1",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.9"
   }
 }
