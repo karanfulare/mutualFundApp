@@ -31,6 +31,40 @@ module.exports = {
       return -1;
     }
   },
+  authenticateUserService: async (email, password) => {
+    try {
+      const selectQuery = await query(
+        `select * from user where userEmail = ? `,
+        [email]
+      );
+
+      if (selectQuery[0].id) {
+        const unhashed = await bcrypt.compare(
+          password,
+          selectQuery[0].userPassword
+        );
+        if (unhashed) {
+          return 1;
+        } else return 0;
+      } else {
+        return -1;
+      }
+    } catch (err) {
+      console.error(err);
+      return -1;
+    }
+  },
+  generateToken:async(email,password)=>{
+    try {
+        let SECRET_KEY = process.env.secret ;
+        const token = jwt.sign({ email,password }, SECRET_KEY, { expiresIn: "1h" });
+        return token ;
+        
+    } catch (err) {
+        console.error(err);
+        return -1;
+    }
+  },
   storeToDb: async (userName, hashPassword, email) => {
     try {
       const InsertQuery = await query(
