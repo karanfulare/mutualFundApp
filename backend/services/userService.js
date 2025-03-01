@@ -1,5 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const db = require("./../utils/dbConfig");
+const util = require("util");
+const query = util.promisify(db.query).bind(db);
 
 module.exports = {
   hashPassword: async (password) => {
@@ -17,7 +20,7 @@ module.exports = {
   checkUserExist: async (email) => {
     try {
       const selectQuery = await query(
-        `Select count(*) from user where email = ?`,
+        `Select count(*) as "count" from user where userEmail = ?`,
         [email]
       );
       if (selectQuery[0].count > 0) {
@@ -28,10 +31,10 @@ module.exports = {
       return -1;
     }
   },
-  StoretoDb: async (userName, hashPassword, email) => {
+  storeToDb: async (userName, hashPassword, email) => {
     try {
       const InsertQuery = await query(
-        `Insert into user (username,password,email) values(?,?,?)`,
+        `Insert into user (userName,userPassword,userEmail) values(?,?,?)`,
         [userName, hashPassword, email]
       );
       if (InsertQuery.insertId > 0) {
