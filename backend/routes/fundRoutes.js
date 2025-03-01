@@ -1,8 +1,8 @@
 const router = require("express").Router() ;
 
-const {fetchFund} = require("./../controller/fundControler");
+const {fetchFundHouses} = require("./../controller/fundControler");
 const{ verifyToken} = require("../middleware/auth")
 
-router.get("/list-funds",verifyToken,fetchFund)
+router.get("/list-funds",verifyToken,fetchFundHouses)
 
 module.exports = router ;
