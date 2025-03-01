@@ -59,4 +59,31 @@ module.exports = {
       return -1;
     }
   },
+  getOpenSchemeForFamily :async(family)=>{
+    try {
+        const options = {
+            method: "GET",
+            url: "https://latest-mutual-fund-nav.p.rapidapi.com/latest",
+            params: {
+                Mutual_Fund_Family: family,
+                Scheme_Type: 'Open'
+              },
+            headers: {
+              "x-rapidapi-key":process.env.rapidApiKey,
+              "x-rapidapi-host": "latest-mutual-fund-nav.p.rapidapi.com",
+            },
+          };
+    
+          const response = await axios.request(options);
+          if(response.data.length > 0){
+            return response.data
+          }
+          else {
+            return -1 ;
+          }
+    } catch (err) {
+        console.error(err);
+        return -1;
+  }
+}
 };
