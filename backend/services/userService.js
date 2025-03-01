@@ -54,10 +54,10 @@ module.exports = {
       return -1;
     }
   },
-  generateToken:async(email,password)=>{
+  generateToken:async(email)=>{
     try {
         let SECRET_KEY = process.env.secret ;
-        const token = jwt.sign({ email,password }, SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ email}, SECRET_KEY, { expiresIn: "1h" });
         return token ;
         
     } catch (err) {

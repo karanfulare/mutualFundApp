@@ -44,7 +44,7 @@ module.exports = {
       const { email, password } = req.body;
       const checkUserExist = await authenticateUserService(email, password);
       if (checkUserExist === 1) {
-        const getToken = await  generateToken(email,password);
+        const getToken = await  generateToken(email);
         return res
           .status(200)
           .json({ message: "user exists ", data: [{"token":getToken}] });
