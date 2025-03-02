@@ -8,6 +8,6 @@ module.exports = {
     }),
     loginuser:Joi.object().keys({
         email:Joi.string().email().required(),
-        password:Joi.string().alphanum().length(6).required()
+        password:Joi.string().alphanum().min(7).required()
     })
 }
