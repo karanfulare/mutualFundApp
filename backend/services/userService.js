@@ -38,6 +38,10 @@ module.exports = {
         [email]
       );
 
+      if (!selectQuery.length) { 
+        return -1;
+    }
+
       if (selectQuery[0].id) {
         const unhashed = await bcrypt.compare(
           password,

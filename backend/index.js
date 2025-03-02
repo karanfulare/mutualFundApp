@@ -7,6 +7,10 @@ app.use(express.json())
 
 app.use("/",require("./routes/index"))
 
-app.listen(port,()=>{
-    console.log(`App listening on port ${port}`)
-})
+if (process.env.NODE_ENV !== "test") {
+    app.listen(port, () => {
+        console.log(`App listening on port ${port}`);
+    });
+}
+
+module.exports = app;
