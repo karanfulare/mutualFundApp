@@ -6,6 +6,7 @@ const {
   getFundHousesFromDb,
   getOpenSchemeForFamily,
   addscheme,
+  getCurrentValueofPortfolio
 } = require("../services/fundService");
 
 const query = util.promisify(db.query).bind(db);
@@ -46,14 +47,15 @@ module.exports = {
   },
   addScheme: async (req, res) => {
     try {
-      const { scheme_code } = req.body;
-      const add = await addscheme(scheme_code, req.user.email);
+      const { scheme_code , units } = req.body;
+      const add = await addscheme(scheme_code,units, req.user.email);
       if (add === 1) {
         return res.status(201).json({
           message: `added the following scheme to portfolio  `,
           data: [
             {
               scheme_code: scheme_code,
+              units:units
             },
           ],
         });
@@ -65,4 +67,13 @@ module.exports = {
       return res.status(500).json({ message: "some error occured", data: [] });
     }
   },
+  getPortfolio:async(req,res)=>{
+    try {
+        const data = await getCurrentValueofPortfolio(req.user.email);
+        return res.status(200).json({message:"This is the data",data:[data]})
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "some error occured", data: [] });
+    }
+  }
 };
